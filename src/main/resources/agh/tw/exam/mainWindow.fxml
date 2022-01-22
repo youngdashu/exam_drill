@@ -52,14 +52,6 @@
                   <Font size="23.0" />
                </font>
             </Label>
-            <Button fx:id="rotateImageButton" mnemonicParsing="false" onAction="#rotateImage" prefHeight="40.0" text="Rotate">
-               <HBox.margin>
-                  <Insets left="5.0" right="5.0" top="30.0" />
-               </HBox.margin>
-               <font>
-                  <Font size="10.0" />
-               </font>
-            </Button>
             <ChoiceBox fx:id="questionOrderChoiceBox" minHeight="40.0" prefWidth="150.0">
                <HBox.margin>
                   <Insets left="10.0" top="30.0" />

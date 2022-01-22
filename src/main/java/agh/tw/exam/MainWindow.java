@@ -29,8 +29,8 @@ public class MainWindow {
     @FXML
     Button nextQuestionButton;
 
-    @FXML
-    Button rotateImageButton;
+//    @FXML
+//    Button rotateImageButton;
 
     @FXML
     ImageView photoDisplay;
@@ -94,25 +94,25 @@ public class MainWindow {
 
     }
 
-    @FXML
-    public void rotateImage() {
-
-        imageRotation += 90.0;
-
-        if (imageRotation == 360.0) {
-            imageRotation = 0.0;
-        }
-
-        this.photoDisplay.setRotate(imageRotation);
-
-        photoDisplay.fitHeightProperty().bind(new DoubleBinding() {
-            @Override
-            protected double computeValue() {
-                return 750;
-            }
-        });
-
-    }
+//    @FXML
+//    public void rotateImage() {
+//
+//        imageRotation += 90.0;
+//
+//        if (imageRotation == 360.0) {
+//            imageRotation = 0.0;
+//        }
+//
+//        this.photoDisplay.setRotate(imageRotation);
+//
+//        photoDisplay.fitHeightProperty().bind(new DoubleBinding() {
+//            @Override
+//            protected double computeValue() {
+//                return 750;
+//            }
+//        });
+//
+//    }
 
 
 }
