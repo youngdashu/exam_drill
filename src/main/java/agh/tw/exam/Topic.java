@@ -3,6 +3,7 @@ package agh.tw.exam;
 import java.io.File;
 import java.io.FileFilter;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Topic implements Comparable<Topic>{
 
@@ -37,6 +38,24 @@ public class Topic implements Comparable<Topic>{
         this.questions = new ArrayList<>();
 
         questions.addAll(Arrays.asList(topic.listFiles()));
+
+        questions = questions.stream().filter(file -> ! file.getName().startsWith(".")).collect(Collectors.toList());
+
+//        questions.forEach(file -> System.out.println(file));
+
+        questions.sort((o1, o2) -> {
+
+
+            int number1 = Integer.parseInt(o1.getName().split("-")[0]);
+            int number2 = Integer.parseInt(o2.getName().split("-")[0]);
+
+            if(number1 > number2){
+                return 1;
+            } else if(number1 == number2){
+                return 0;
+            }
+            return -1;
+        });
 
 
     }

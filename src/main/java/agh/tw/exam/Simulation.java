@@ -33,7 +33,7 @@ public class Simulation {
     public Integer availablePhotosMax;
     public Integer currentPhotoNumber;
 
-    private boolean isInOrder = false;
+    private boolean isInOrder = true;
 
     private Integer currentTopicInOrder = 0;
     private Integer currentQuestionInOrder = 0;

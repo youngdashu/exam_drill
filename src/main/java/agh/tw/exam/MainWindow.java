@@ -65,7 +65,7 @@ public class MainWindow {
 
 
         questionOrderChoiceBox.setItems(questionOrderList);
-        questionOrderChoiceBox.setValue("Losowe");
+        questionOrderChoiceBox.setValue("W kolejności");
 
         questionOrderChoiceBox.getSelectionModel().selectedIndexProperty().
                 addListener(
