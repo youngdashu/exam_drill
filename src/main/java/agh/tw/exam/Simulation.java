@@ -151,7 +151,7 @@ public class Simulation {
 
         Arrays.stream(photos).forEach(System.out::println);
 
-        String[] splitFileName = photos[0].toString().split("/");
+        String[] splitFileName = photos[0].toString().split("[/\\\\]");
 
         this.mainWindow.topicLabel.setText(splitFileName[2]);
         this.mainWindow.questionLabel.setText(splitFileName[3]);
