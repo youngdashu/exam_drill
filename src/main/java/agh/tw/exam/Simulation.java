@@ -5,10 +5,7 @@ import javafx.scene.image.Image;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.IntStream;
 
 
@@ -26,7 +23,7 @@ public class Simulation {
     public ArrayList<FileInputStream> inputStreams;
 
     public ArrayList<Image> imagesToDisplay;
-    public Iterator<Image> imageIterator;
+    public ListIterator<Image> imageIterator;
 
     public Image currentlyDisplayedImage;
 
@@ -36,7 +33,7 @@ public class Simulation {
     private boolean isInOrder = true;
 
     private Integer currentTopicInOrder = 0;
-    private Integer currentQuestionInOrder = 0;
+    private Integer currentQuestionInOrder = -1;
 
     public Simulation(MainWindow mainWindow, String pathToQuestions, Integer numberOfSubfolders) {
 
@@ -80,9 +77,14 @@ public class Simulation {
     public void putImageOnDisplay() {
 
         if (!imageIterator.hasNext()) {
-            this.imageIterator = imagesToDisplay.iterator();
+            this.imageIterator = imagesToDisplay.listIterator();
         }
 
+        this.currentPhotoNumber++;
+
+        if (this.currentPhotoNumber > this.availablePhotosMax) {
+            this.currentPhotoNumber = 1;
+        }
 
         mainWindow.availablePhotos.setText(this.currentPhotoNumber.toString() + "/" + this.availablePhotosMax.toString());
 //        System.out.println("fiswp " + fileInputStreamWithPhoto);
@@ -91,11 +93,7 @@ public class Simulation {
 
         mainWindow.photoDisplay.setImage(currentlyDisplayedImage);
 
-        this.currentPhotoNumber++;
 
-        if (this.currentPhotoNumber > this.availablePhotosMax) {
-            this.currentPhotoNumber = 1;
-        }
 
     }
 
@@ -103,19 +101,11 @@ public class Simulation {
         this.isInOrder = isInOrder;
     }
 
-
-    public void nextQuestion() {
-
-        System.out.println("-----------------------------------");
-        System.out.println("-----------------------------------");
-
-        this.mainWindow.reactionsFromMd.setText("");
+    private File getQuestionNext(){
 
         File question;
 
         if(isInOrder){
-
-            question = topics.get(currentTopicInOrder).getQuestion(currentQuestionInOrder);
 
             currentQuestionInOrder++;
             if(currentQuestionInOrder >= topics.get(currentTopicInOrder).questions.size()){
@@ -126,34 +116,53 @@ public class Simulation {
                 }
             }
 
+            question = topics.get(currentTopicInOrder).getQuestion(currentQuestionInOrder);
+
         } else {
 
             question = topics.get(random.nextInt(topics.size())).getQuestion();
 
         }
 
-        System.out.println(question);
+        return question;
+    }
 
-        if(question.listFiles() == null){
-//            System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-            this.nextQuestion();
-            return;
+    private File getQuestionPrev(){
+
+        File question;
+
+        if(isInOrder){
+
+            currentQuestionInOrder--;
+            if(currentQuestionInOrder < 0){
+                currentQuestionInOrder = topics.get(currentTopicInOrder).questions.size() - 1;
+                currentTopicInOrder--;
+                if(currentTopicInOrder < 0){
+                    currentTopicInOrder = topics.size() - 1;
+                    currentQuestionInOrder = topics.get(currentTopicInOrder).questions.size() - 1;
+                }
+            }
+
+            question = topics.get(currentTopicInOrder).getQuestion(currentQuestionInOrder);
+
+        } else {
+
+            question = topics.get(random.nextInt(topics.size())).getQuestion();
+
         }
 
+        return question;
+    }
 
 
-
+    private void getQuestionDetails(File question){
 
         new MarkdownReader(question, mainWindow).read();
 
         FileFilter fileFilterPicture = pathname -> pathname.getName().
                 matches(".*\\.(png|jpg)");
 
-        System.out.println("----------------");
 
-        Arrays.stream(question.listFiles()).forEach(System.out::println);
-
-        System.out.println("!!!!!!!!!!!!!!!!!!");
         File[] photos = question.listFiles(fileFilterPicture);
 
         Arrays.stream(photos).forEach(System.out::println);
@@ -168,11 +177,30 @@ public class Simulation {
 
         imagesToDisplay = new QuestionPhotosReader(photos).loadImages();
 
-        imageIterator = imagesToDisplay.iterator();
+        imageIterator = imagesToDisplay.listIterator();
 
-        this.currentPhotoNumber = 1;
+        this.currentPhotoNumber = 0;
 
         this.putImageOnDisplay();
+
+    }
+
+    public void nextQuestion() {
+
+        System.out.println("-----------------------------------");
+        System.out.println("-----------------------------------");
+
+        this.mainWindow.reactionsFromMd.setText("");
+
+        File question = this.getQuestionNext();
+
+        if(question.listFiles() == null){
+//            System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+            this.nextQuestion();
+            return;
+        }
+
+        this.getQuestionDetails(question);
 
 
     }
@@ -190,4 +218,43 @@ public class Simulation {
         }
 
     }
+
+    public void prevQuestion() {
+
+        this.mainWindow.reactionsFromMd.setText("");
+
+        File question = this.getQuestionPrev();
+
+        if(question.listFiles() == null){
+//            System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+            this.prevQuestion();
+            return;
+        }
+
+        this.getQuestionDetails(question);
+
+    }
+
+//    public void prevPhoto() {
+//
+//        if (!imageIterator.hasPrevious()) {
+//            this.imageIterator = imagesToDisplay.listIterator();
+//        }
+//
+//        this.currentPhotoNumber--;
+//
+//        if (this.currentPhotoNumber < 1) {
+//            this.currentPhotoNumber = this.availablePhotosMax;
+//        }
+//
+//        mainWindow.availablePhotos.setText(this.currentPhotoNumber.toString() + "/" + this.availablePhotosMax.toString());
+//
+//        currentlyDisplayedImage = imageIterator.previous();
+//
+//        mainWindow.photoDisplay.setImage(currentlyDisplayedImage);
+//
+//
+//
+//
+//    }
 }

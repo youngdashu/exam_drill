@@ -86,11 +86,25 @@ public class MainWindow {
     }
 
     @FXML
+    public void prevQuestion(){
+
+        this.simulation.prevQuestion();
+
+
+    }
+
+    @FXML
     public void nextPhoto() {
 
         imageRotation = 0.0;
 
         this.simulation.nextPhoto();
+
+    }
+
+    @FXML void prevPhoto(){
+
+//        this.simulation.prevPhoto();
 
     }
 
