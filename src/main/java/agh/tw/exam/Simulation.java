@@ -44,7 +44,14 @@ public class Simulation {
 
         this.mainWindow = mainWindow;
 
-        Arrays.stream(topicNumbers).forEach(topicNumber -> topics.add(new Topic(pathToQuestions, topicNumber)));
+        try {
+
+
+            Arrays.stream(topicNumbers).forEach(topicNumber -> topics.add(new Topic(pathToQuestions, topicNumber)));
+
+        } catch (RuntimeException e){
+            System.out.println("Błąd w nazwie folderu!!!");
+        }
 
         topics.sort(Topic::compareTo);
 
@@ -174,7 +181,13 @@ public class Simulation {
 
     public void nextPhoto() {
 
-        this.putImageOnDisplay();
+        try {
+
+            this.putImageOnDisplay();
+
+        } catch (Exception ex){
+            return;
+        }
 
     }
 }
