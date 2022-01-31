@@ -3,13 +3,20 @@ package agh.tw.exam;
 import javafx.beans.binding.DoubleBinding;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.GridPane;
 
 public class MainWindow {
+
+    @FXML
+    GridPane mainPane;
 
     @FXML
     Label questionLabel;
@@ -35,6 +42,9 @@ public class MainWindow {
     @FXML
     ImageView photoDisplay;
 
+    private double prevHeightPhotoDisplay;
+    private double prevWidthPhotoDisplay;
+
     @FXML
     ChoiceBox<String> questionOrderChoiceBox;
 
@@ -47,13 +57,8 @@ public class MainWindow {
 
     public double imageRotation = 0.0;
 
-//    private String path;
-//    private Integer numberOfSubfolders;
 
     public void setInitData(String path, Integer numberOfSubfolders) {
-
-//        this.path = path;
-//        this.numberOfSubfolders = numberOfSubfolders;
 
         simulation = new Simulation(this, path, numberOfSubfolders);
 
@@ -73,6 +78,9 @@ public class MainWindow {
                                 simulation.setNextQuestionChoosingMethod(newValue.intValue() == 1)
                 );
 
+
+
+
 //        System.out.println("Working Directory = " + System.getProperty("user.dir"));
     }
 
@@ -82,6 +90,17 @@ public class MainWindow {
         imageRotation = 0.0;
 
         this.simulation.nextQuestion();
+
+//        this.mainPane.setOnKeyPressed(keyEvent -> {
+//            System.out.println(keyEvent.getCode());
+//            if(keyEvent.getCode() == KeyCode.CONTROL){
+//                prevHeightPhotoDisplay = photoDisplay.getFitHeight();
+//                prevWidthPhotoDisplay = photoDisplay.getFitWidth();
+//
+//                photoDisplay.setFitWidth(0.95 * mainPane.getMaxWidth());
+//                photoDisplay.setFitHeight(0.95 * mainPane.getMaxHeight());
+//            }
+//        });
 
     }
 
