@@ -19,16 +19,16 @@
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="30.0" minWidth="0.0" prefWidth="10.0" />
   </columnConstraints>
   <rowConstraints>
-    <RowConstraints maxHeight="100.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints fx:id="gridPane" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="100.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="80.0" minHeight="10.0" prefHeight="98.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="100.0" minHeight="10.0" prefHeight="53.848876953125" vgrow="SOMETIMES" />
+    <RowConstraints fx:id="gridPane" maxHeight="767.8658447265625" minHeight="10.0" prefHeight="766.651123046875" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+      <HBox fx:id="buttonsHBox" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <children>
             <Label fx:id="availablePhotos" prefHeight="40.0" prefWidth="100.0">
                <HBox.margin>
-                  <Insets left="10.0" right="20.0" top="30.0" />
+                  <Insets top="5.0" />
                </HBox.margin>
                <font>
                   <Font size="25.0" />
@@ -36,12 +36,12 @@
             </Label>
             <Button fx:id="nextPhotoButton" mnemonicParsing="false" onAction="#nextPhoto" prefHeight="40.0" prefWidth="133.0" text="Następne zdjęcie">
                <HBox.margin>
-                  <Insets left="10.0" top="30.0" />
+                  <Insets top="5.0" />
                </HBox.margin>
             </Button>
             <Label fx:id="reactionsFromMd" prefHeight="28.0" prefWidth="497.0">
                <HBox.margin>
-                  <Insets left="10.0" right="10.0" top="30.0" />
+                  <Insets top="5.0" />
                </HBox.margin>
                <font>
                   <Font size="23.0" />
@@ -49,24 +49,29 @@
             </Label>
             <Button mnemonicParsing="false" onAction="#prevQuestion" prefHeight="40.0" prefWidth="132.0" text="Poprzednie pytanie">
                <HBox.margin>
-                  <Insets top="30.0" />
+                  <Insets top="5.0" />
                </HBox.margin>
             </Button>
             <Button fx:id="nextQuestionButton" mnemonicParsing="false" onAction="#nextQuestion" prefHeight="40.0" prefWidth="136.0" text="Następne pytanie">
                <HBox.margin>
-                  <Insets left="10.0" top="30.0" />
+                  <Insets top="5.0" />
+               </HBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#rotateImage" prefHeight="40.0" text="R">
+               <HBox.margin>
+                  <Insets top="5.0" />
                </HBox.margin>
             </Button>
             <ChoiceBox fx:id="questionOrderChoiceBox" minHeight="40.0" prefWidth="150.0">
                <HBox.margin>
-                  <Insets left="10.0" top="30.0" />
+                  <Insets top="5.0" />
                </HBox.margin>
             </ChoiceBox>
          </children>
       </HBox>
-      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
+      <VBox fx:id="topicVBox" prefHeight="90.0" prefWidth="100.0" GridPane.columnIndex="1">
          <children>
-            <HBox prefHeight="100.0" prefWidth="200.0">
+            <HBox prefHeight="40.0" prefWidth="200.0">
                <children>
                   <Label prefHeight="30.0" prefWidth="89.0" text="Temat:">
                      <font>
@@ -82,7 +87,7 @@
                      </font></Label>
                </children>
             </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
+            <HBox prefHeight="40.0" prefWidth="200.0">
                <children>
                   <Label prefHeight="30.0" prefWidth="96.0" text="Pytanie:">
                      <font>
@@ -100,6 +105,10 @@
             </HBox>
          </children>
       </VBox>
-      <ImageView fx:id="photoDisplay" fitHeight="764.0" fitWidth="1173.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <VBox fx:id="photoDisplayVBox" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+         <children>
+            <ImageView fx:id="photoDisplay" fitHeight="764.0" fitWidth="1173.0" pickOnBounds="true" preserveRatio="true" />
+         </children>
+      </VBox>
    </children>
 </GridPane>

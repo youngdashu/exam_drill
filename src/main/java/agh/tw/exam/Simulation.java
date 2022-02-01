@@ -1,5 +1,6 @@
 package agh.tw.exam;
 
+import javafx.geometry.Insets;
 import javafx.scene.image.Image;
 
 import java.io.File;
@@ -80,6 +81,8 @@ public class Simulation {
             this.imageIterator = imagesToDisplay.listIterator();
         }
 
+
+
         this.currentPhotoNumber++;
 
         if (this.currentPhotoNumber > this.availablePhotosMax) {
@@ -90,6 +93,11 @@ public class Simulation {
 //        System.out.println("fiswp " + fileInputStreamWithPhoto);
 
         currentlyDisplayedImage = imageIterator.next();
+
+        mainWindow.photoDisplayVBox.setPadding(new Insets(0,
+                0, 0, 0));
+
+        mainWindow.photoDisplay.setRotate(0);
 
         mainWindow.photoDisplay.setImage(currentlyDisplayedImage);
 
@@ -196,7 +204,9 @@ public class Simulation {
 
         if(question.listFiles() == null){
 //            System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+            System.out.println("!");
             this.nextQuestion();
+
             return;
         }
 

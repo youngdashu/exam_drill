@@ -5,6 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -12,11 +13,24 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 public class MainWindow {
 
+
+
     @FXML
     GridPane mainPane;
+
+    @FXML
+    VBox topicVBox;
+
+    @FXML
+    HBox buttonsHBox;
+
+    @FXML
+    VBox photoDisplayVBox;
 
     @FXML
     Label questionLabel;
@@ -44,6 +58,8 @@ public class MainWindow {
 
     private double prevHeightPhotoDisplay;
     private double prevWidthPhotoDisplay;
+
+    private double prevPhotoDisplayY = -1.0;
 
     @FXML
     ChoiceBox<String> questionOrderChoiceBox;
@@ -119,6 +135,20 @@ public class MainWindow {
 
         this.simulation.nextPhoto();
 
+//        if(prevPhotoDisplayY != -1.0) {
+//
+//            this.photoDisplay.setY(prevPhotoDisplayY);
+//            prevPhotoDisplayY = this.photoDisplay.getY();
+//
+//        }
+
+//        VBox.setMargin(photoDisplayVBox,
+//                new Insets(0,0, 0, 0)
+//        );
+
+
+
+
     }
 
     @FXML void prevPhoto(){
@@ -127,25 +157,47 @@ public class MainWindow {
 
     }
 
-//    @FXML
-//    public void rotateImage() {
-//
-//        imageRotation += 90.0;
-//
-//        if (imageRotation == 360.0) {
-//            imageRotation = 0.0;
-//        }
-//
-//        this.photoDisplay.setRotate(imageRotation);
-//
+    @FXML
+    public void rotateImage() {
+
+        imageRotation += 90.0;
+
+        if (imageRotation == 360.0) {
+            imageRotation = 0.0;
+        }
+
+        this.photoDisplayVBox.setPadding(new Insets(topicVBox.getHeight() * 2 + buttonsHBox.getHeight() * 2,
+                0, 0, 0));
+
+        this.photoDisplay.setRotate(photoDisplay.getRotate() + 90);
+
+        this.buttonsHBox.setViewOrder(-1.0);
+
+//        prevPhotoDisplayY = this.photoDisplay.getY();
+
+//        this.photoDisplay.set(prevPhotoDisplayY +
+//                topicVBox.getHeight() +
+//                buttonsHBox.getHeight());
+
+//        VBox.setMargin(photoDisplayVBox,
+//                new Insets(topicVBox.getHeight() * 2 + buttonsHBox.getHeight() * 2,
+//                        0, 0, 500)
+//        );
+
+//        photoDisplayVBox.setPadding(new Insets(topicVBox.getHeight() * 2 + buttonsHBox.getHeight() * 2,
+//                0, 0, 0));
+
+
+
+
 //        photoDisplay.fitHeightProperty().bind(new DoubleBinding() {
 //            @Override
 //            protected double computeValue() {
 //                return 750;
 //            }
 //        });
-//
-//    }
+
+    }
 
 
 }
